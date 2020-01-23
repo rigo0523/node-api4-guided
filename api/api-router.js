@@ -1,4 +1,6 @@
 const express = require('express');
+const net = require('net');
+const socket = require('net').Socket;
 
 const Shouts = require('../shouts/shouts-model.js');
 
@@ -22,6 +24,17 @@ router.get('/', (req, res) => {
   const messageOfTheDay = process.env.MOTD;
   res.status(200).json({ motd: messageOfTheDay });
 });
+
+//----------------------------------------------------------------------------//
+// This is just a little something to be able to see what the app is listening
+// on in Heroku... just hit /api/addr and it will show you. You can get the
+// local (and remote!) addresses from the req.connection object. Remote address
+// is the address and port of the machine sending the request. Neat!
+//----------------------------------------------------------------------------//
+router.get('/addr', (req, res) => {
+  const addr = `server listening on ${req.connection.localAddress}:${req.connection.localPort}`;
+  res.status(200).json({ address: addr });
+})
 
 router.get('/shouts', (req, res, next) => {
   Shouts.find()
