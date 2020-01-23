@@ -150,7 +150,7 @@ server.listen(port, () => {
 //  app listen on a TCP port that we know is not being used by anyone else
 //  (because Heroku will ensure that it is just for us.) In additon, Heroku will
 //  modify its firewall to direct inbound traffic addressed to our app's URL on
-//  port 80 or 443 to the machine where our app is running, and the port number
+//  port 80 or 443 to the machine where our app is running, a`nd the port number
 //  assigned to our app (and published in our environment's PORT variable.)
 
 
