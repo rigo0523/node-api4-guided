@@ -55,6 +55,42 @@ router.delete("/shouts/:id", (req, res) => {
     .catch(error => next(error));
 });
 
+
+//----------------------------------------------------------------------------//
+// ASYNC/AWAIT version endpoints
+//----------------------------------------------------------------------------//
+
+router.get("/shouts.async", async (req, res, next) => {
+  try {
+    const shouts = Shouts.find();
+    res.status(200).json(shouts);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/shouts.async", async (req, res, next) => {
+  try {
+    const shout = await Shouts.add(req.body);
+    res.status(201).json(shout);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/shouts.async/:id", async (req, res) => {
+  try {
+    const count = Shouts.remove(req.params.id);
+    if (count) {
+      res.status(204).end();
+    } else {
+      res.status(404).json({ message: "not found!" });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.use(errorHandler);
 
 function errorHandler(error, req, res, next) {
