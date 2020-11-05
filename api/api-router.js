@@ -8,7 +8,9 @@ router.use(express.json());
 
 // comments for fun
 router.get("/", (req, res) => {
-  res.status(200).json({ api: "up" });
+  const motd = process.env.MOTD || 'hello world!';
+
+  res.status(200).json({ api: "up", motd: motd });
 });
 
 router.get("/shouts", (req, res, next) => {
